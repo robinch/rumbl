@@ -1,5 +1,6 @@
 defmodule Rumbl.Accounts do
   alias Rumbl.{Accounts.User, Repo}
+  import Ecto.Query
 
   def get_user(id) do
     Repo.get(User, id)
@@ -15,6 +16,10 @@ defmodule Rumbl.Accounts do
 
   def list_users do
     Repo.all(User)
+  end
+
+  def list_users_with_ids(ids) do
+    Repo.all(from u in User, where: u.id in ^ids)
   end
 
   def change_user(%User{} = user) do
